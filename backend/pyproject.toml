@@ -1,0 +1,51 @@
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100
+exclude = ["migrations"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+"config/settings/*.py" = ["F403", "F401"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.dev"
+python_files = ["test_*.py"]
+
+[tool.importlinter]
+root_packages = ["apps", "common"]
+
+[[tool.importlinter.contracts]]
+name = "Modules only call earlier modules"
+type = "layers"
+layers = ["apps.reviews", "apps.jobs", "apps.workers", "apps.accounts"]
+
+[[tool.importlinter.contracts]]
+name = "common never imports a module"
+type = "forbidden"
+source_modules = ["common"]
+forbidden_modules = ["apps"]
+
+[[tool.importlinter.contracts]]
+name = "jobs uses other modules only through services and selectors"
+type = "forbidden"
+source_modules = ["apps.jobs"]
+forbidden_modules = ["apps.accounts.models", "apps.accounts.apis", "apps.workers.models", "apps.workers.apis"]
+allow_indirect_imports = true
+
+[[tool.importlinter.contracts]]
+name = "workers uses accounts only through services and selectors"
+type = "forbidden"
+source_modules = ["apps.workers"]
+forbidden_modules = ["apps.accounts.models", "apps.accounts.apis"]
+allow_indirect_imports = true
+
+[[tool.importlinter.contracts]]
+name = "reviews uses other modules only through services and selectors"
+type = "forbidden"
+source_modules = ["apps.reviews"]
+forbidden_modules = ["apps.accounts.models", "apps.accounts.apis", "apps.workers.models", "apps.workers.apis", "apps.jobs.models", "apps.jobs.apis"]
+allow_indirect_imports = true

@@ -7,6 +7,7 @@ import '@fontsource/poppins/700.css'
 import '@fontsource/poppins/800.css'
 import './styles/global.css'
 import './styles/auth.css'
+import './styles/worker.css'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(

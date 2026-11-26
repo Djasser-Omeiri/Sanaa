@@ -1,5 +1,6 @@
 import { Link, NavLink, Outlet, useOutletContext } from 'react-router-dom'
 import { ArrowLeft, ClipboardList, Clock, FileCheck, LayoutDashboard, LogOut, MapPin, Search, Send, User } from 'lucide-react'
+import { useAuth } from '../auth/AuthContext.js'
 import { Avatar, LanguagePill, Logo } from './ui.jsx'
 
 const NAV = {
@@ -32,10 +33,11 @@ const NAV = {
 
 export function AppLayout({ role }) {
   const { initials, items } = NAV[role]
+  const { logout } = useAuth()
   return (
     <div className="app-shell">
       <aside className="sidebar">
-        <Logo light />
+        <span className="sidebar-logo"><Logo /></span>
         <nav aria-label="Main">
           {items.map(([to, label, Icon]) => (
             <NavLink key={to} to={to} end={to.split('/').length === 2}>
@@ -43,7 +45,7 @@ export function AppLayout({ role }) {
             </NavLink>
           ))}
         </nav>
-        <Link className="logout" to="/"><LogOut size={22} /><span>Log Out</span></Link>
+        <button type="button" className="logout" onClick={logout}><LogOut size={22} /><span>Log Out</span></button>
       </aside>
       <main className="main"><Outlet context={{ initials }} /></main>
     </div>

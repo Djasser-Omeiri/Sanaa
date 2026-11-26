@@ -1,0 +1,113 @@
+/* Login and register (task D1.1): the Figma hero is the page background, the form card sits on its empty side. */
+.auth-page {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  padding: 28px clamp(20px, 5vw, 72px) 32px;
+  background: #e8f1fd url('../assets/auth-hero.png') right center / cover no-repeat;
+}
+
+.auth-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.auth-main { display: flex; width: min(100%, 500px); flex: 1; flex-direction: column; justify-content: center; gap: 18px; padding: 28px 0 0; }
+
+.auth-card {
+  padding: 36px 40px;
+  border: 1px solid rgb(255 255 255 / 70%);
+  border-radius: 28px;
+  background: rgb(255 255 255 / 94%);
+  box-shadow: 0 24px 60px rgb(11 40 88 / 14%);
+  backdrop-filter: blur(8px);
+}
+.auth-card h1 { font-size: clamp(28px, 2.6vw, 34px); font-weight: 700; }
+.auth-subtitle { margin-top: 6px; font-size: 15px; }
+
+.auth-perks { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.auth-perks li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 80%);
+  box-shadow: 0 4px 14px rgb(11 40 88 / 8%);
+  font-size: 13px;
+  font-weight: 500;
+}
+.auth-perks svg { color: var(--blue); }
+
+.auth-form { display: flex; flex-direction: column; gap: 18px; margin-top: 28px; }
+.auth-field { display: flex; flex-direction: column; gap: 7px; }
+.auth-field label { font-size: 13px; font-weight: 600; }
+.auth-input {
+  display: flex;
+  min-height: 54px;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--muted);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.auth-input:focus-within { border-color: var(--blue); box-shadow: 0 0 0 4px rgb(8 102 232 / 12%); color: var(--blue); }
+.auth-input.invalid { border-color: var(--red); color: var(--red); }
+.auth-input input { min-width: 0; flex: 1; border: 0; outline: 0; background: none; color: var(--navy); font-size: 15px; }
+.auth-input input::placeholder { color: #9aa4b8; }
+.auth-eye { display: flex; padding: 4px; border: 0; border-radius: 50%; background: none; color: var(--muted); }
+.field-error { color: var(--red); font-size: 12px; padding-inline-start: 18px; }
+
+.auth-alert { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 14px; background: #fee2e2; color: var(--red); font-size: 13px; font-weight: 500; }
+.auth-alert svg { flex: none; }
+
+.auth-submit { min-height: 54px; margin-top: 6px; font-size: 16px; box-shadow: 0 10px 24px rgb(8 102 232 / 28%); }
+.auth-submit:disabled { opacity: 0.7; cursor: progress; }
+.auth-switch { text-align: center; font-size: 14px; }
+.auth-switch a { color: var(--blue); font-weight: 700; }
+.auth-demo { display: flex; gap: 8px; padding: 12px 14px; border-radius: 14px; background: var(--surface); font-size: 12px; line-height: 1.5; }
+.auth-demo svg { flex: none; margin-top: 2px; color: var(--blue); }
+.auth-demo b { color: var(--navy); font-weight: 600; }
+
+.role-choice { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0; padding: 0; border: 0; }
+.role-choice legend { margin-bottom: 8px; padding: 0; font-size: 13px; font-weight: 600; }
+.role-choice label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 18px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.role-choice label:hover { border-color: var(--blue); }
+.role-choice label.selected { border-color: var(--blue); background: var(--soft); color: var(--blue); }
+.role-choice label:has(input:focus-visible) { outline: 2px solid var(--blue); outline-offset: 2px; }
+.role-choice input { position: absolute; opacity: 0; pointer-events: none; }
+.role-choice span { display: flex; flex-direction: column; }
+.role-choice b { color: var(--navy); font-size: 15px; }
+.role-choice small { font-size: 12px; }
+
+/* The selling points only show when there is room for them below the card. */
+@media (max-width: 1100px), (max-height: 860px) {
+  .auth-perks { display: none; }
+}
+
+@media (max-width: 760px) {
+  .auth-page { padding: 18px 0 0; background-position: 88% 20px; background-size: 150% auto; }
+  .auth-top { padding: 0 18px; }
+  .auth-top .logo { height: 46px; }
+  .auth-main { width: 100%; justify-content: flex-start; margin-top: 250px; padding: 0; }
+  .auth-card { flex: 1; padding: 26px 20px 32px; border-radius: 28px 28px 0 0; box-shadow: 0 -8px 30px rgb(11 40 88 / 10%); }
+  .auth-card h1 { font-size: 26px; }
+  .auth-form { gap: 16px; margin-top: 22px; }
+  .auth-perks { display: none; }
+  .role-choice { gap: 10px; }
+  .role-choice label { gap: 10px; padding: 12px; }
+}
+
+@media (max-width: 360px) {
+  .auth-main { margin-top: 200px; }
+  .role-choice { grid-template-columns: 1fr; }
+}

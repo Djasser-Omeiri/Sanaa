@@ -1,6 +1,6 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Eye, EyeOff, Globe, ImagePlus, MapPin, Star } from 'lucide-react'
+import { Globe, ImagePlus, MapPin, Star } from 'lucide-react'
+import logoUrl from '../assets/sanaa-logo.png'
 
 const STATUS = {
   open: ['Open', 'blue'],
@@ -45,23 +45,6 @@ export function Field({ label, children }) {
   return <label className="field"><span>{label}</span>{children}</label>
 }
 
-export function IconInput({ icon: Icon, ...props }) {
-  return <span className="icon-input"><Icon size={20} /><input {...props} /></span>
-}
-
-export function PasswordInput({ icon: Icon, ...props }) {
-  const [visible, setVisible] = useState(false)
-  return (
-    <span className="icon-input">
-      <Icon size={20} />
-      <input type={visible ? 'text' : 'password'} {...props} />
-      <button type="button" aria-label={visible ? 'Hide password' : 'Show password'} onClick={() => setVisible(!visible)}>
-        {visible ? <Eye size={20} /> : <EyeOff size={20} />}
-      </button>
-    </span>
-  )
-}
-
 export function Tabs({ options, value, onChange }) {
   return (
     <div className="tabs" role="tablist">
@@ -78,8 +61,9 @@ export function LanguagePill({ compact = false }) {
   return <span className="language-pill"><Globe size={18} />{compact ? 'EN' : 'FR | AR | EN'}</span>
 }
 
-export function Logo({ light = false }) {
-  return <span className={`logo ${light ? 'logo-light' : ''}`}><span className="logo-mark">S</span>SANAA</span>
+// SANAA logo exported from Figma.
+export function Logo() {
+  return <img className="logo" src={logoUrl} alt="SANAA" width="480" height="160" />
 }
 
 export function PhotoSlot({ label, add = false }) {

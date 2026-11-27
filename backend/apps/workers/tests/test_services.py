@@ -3,7 +3,7 @@ from decimal import Decimal
 import pytest
 
 from apps.accounts import services as account_services
-from apps.workers import services
+from apps.workers import selectors, services
 from apps.workers.models import Trade
 from common.exceptions import ApplicationError, Conflict, Forbidden, NotFound
 
@@ -101,3 +101,26 @@ def test_update_requires_an_existing_profile():
     worker = make_user()
     with pytest.raises(NotFound):
         services.update_profile(user_id=worker.id, bio="Nothing to update.")
+
+
+def test_can_apply_to_trade():
+    worker = make_user()
+    create_profile_for(worker)
+    plumber = Trade.objects.get(name="Plumber")
+    electrician = Trade.objects.get(name="Electrician")
+
+    assert selectors.can_apply_to_trade(user_id=worker.id, trade_id=plumber.id)
+    assert not selectors.can_apply_to_trade(user_id=worker.id, trade_id=electrician.id)
+
+
+def test_get_search_area():
+    worker = make_user()
+    create_profile_for(worker)
+    area = selectors.get_search_area(user_id=worker.id)
+
+    assert area is not None
+    assert area["trade_ids"] == (Trade.objects.get(name="Plumber").id,)
+    assert area["latitude"] == Decimal("36.753800")
+    assert area["longitude"] == Decimal("3.058900")
+    assert area["radius_km"] == 15
+    assert selectors.get_search_area(user_id=999999) is None

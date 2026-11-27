@@ -6,7 +6,6 @@ from apps.workers import selectors as worker_selectors
 PASSWORD = "Str0ng-Pass-2026"
 
 
-
 @pytest.fixture(autouse=True)
 def media_in_tmp(settings, tmp_path):
     """Uploaded test photos go to a temporary folder, not to the real media folder."""

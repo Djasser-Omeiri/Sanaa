@@ -42,9 +42,19 @@ class JobRequest(BaseModel):
         return f"Request {self.pk} ({self.status})"
 
 
+ALLOWED_PHOTO_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
+DEFAULT_PHOTO_EXTENSION = ".jpg"
+
+
 def request_photo_path(instance: "RequestPhoto", filename: str) -> str:
-    """Store each photo under a random name, so a file name cannot be guessed."""
+    """Store each photo under a random name, so a file name cannot be guessed.
+
+    The extension of the uploaded name is kept only when it is an image extension we
+    accept; anything else (".exe", ".php", no extension...) becomes ".jpg".
+    """
     extension = Path(filename).suffix.lower()
+    if extension not in ALLOWED_PHOTO_EXTENSIONS:
+        extension = DEFAULT_PHOTO_EXTENSION
     return f"requests/{uuid4().hex}{extension}"
 
 

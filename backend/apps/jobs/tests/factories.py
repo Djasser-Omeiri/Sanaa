@@ -3,7 +3,6 @@ from io import BytesIO
 from django.core.files.uploadedfile import SimpleUploadedFile
 from PIL import Image
 
-
 UNKNOWN_TRADE_ID = 999_999  # no trade has this id
 
 

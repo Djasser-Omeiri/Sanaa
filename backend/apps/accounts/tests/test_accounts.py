@@ -137,7 +137,9 @@ def test_me_get_and_patch(api_client):
 
 # ---- selectors ----
 def test_selectors():
-    res = services.register_user(full_name="X", password=PASSWORD, role="worker", phone="0555000000")
+    res = services.register_user(
+        full_name="X", password=PASSWORD, role="worker", phone="0555000000"
+    )
     uid = res.user.id
     assert selectors.get_user(user_id=uid).id == uid
     assert selectors.user_has_role(user_id=uid, role="worker")

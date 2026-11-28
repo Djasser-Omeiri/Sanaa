@@ -6,13 +6,16 @@ import Login from './pages/auth/Login.jsx'
 import Register from './pages/auth/Register.jsx'
 import { Home } from './pages/PublicPages.jsx'
 import { ApplicantProfile, BrowseWorkers, ClientHub, LocationPicker, MyRequests, PostRequest, RateReview, RequestDetail, WorkerPublicProfile } from './pages/ClientPages.jsx'
-import { AddPost, MyApplications, NearbyRequests, WorkerDashboard, WorkerProfile, WorkerRequestDetail } from './pages/WorkerPages.jsx'
+import { MyApplications, NearbyRequests, WorkerDashboard, WorkerRequestDetail } from './pages/WorkerPages.jsx'
+import MyProfile from './pages/worker/MyProfile.jsx'
+import PostForm from './pages/worker/PostForm.jsx'
+import ProfileForm from './pages/worker/ProfileForm.jsx'
 import { PendingPosts, PostReview, ReviewHistory, StaffHub } from './pages/StaffPages.jsx'
 
 const SCREENS = {
   Public: [['/', 'Home'], ['/login', 'Login'], ['/register', 'Register']],
   Client: [['/client', 'Client Hub'], ['/client/workers', 'Browse workers'], ['/client/workers/3', 'Worker public profile'], ['/client/requests/new', 'Post a job request'], ['/client/requests/new/location', 'Location picker'], ['/client/requests', 'My job requests'], ['/client/requests/1', 'Request detail + applicants'], ['/client/requests/1/applicants/1', 'Applicant profile'], ['/client/requests/1/review', 'Rate & review worker']],
-  Worker: [['/worker', 'Dashboard'], ['/worker/profile', 'My profile & portfolio'], ['/worker/profile/posts/new', 'Add portfolio post'], ['/worker/nearby', 'Nearby requests'], ['/worker/nearby/11', 'Request detail'], ['/worker/applications', 'My applications']],
+  Worker: [['/worker', 'Dashboard'], ['/worker/profile', 'My profile & portfolio'], ['/worker/profile/create', 'Create profile'], ['/worker/profile/edit', 'Edit profile'], ['/worker/profile/posts/new', 'Add portfolio post'], ['/worker/profile/posts/3/edit', 'Edit rejected post'], ['/worker/nearby', 'Nearby requests'], ['/worker/nearby/11', 'Request detail'], ['/worker/applications', 'My applications']],
   Staff: [['/staff', 'Staff Hub'], ['/staff/pending', 'Pending posts'], ['/staff/pending/1', 'Post review'], ['/staff/history', 'Review history']],
 }
 
@@ -63,8 +66,11 @@ export default function App() {
           <Route element={<RequireRole role="worker" />}>
             <Route path="/worker" element={<AppLayout role="worker" />}>
               <Route index element={<WorkerDashboard />} />
-              <Route path="profile" element={<WorkerProfile />} />
-              <Route path="profile/posts/new" element={<AddPost />} />
+              <Route path="profile" element={<MyProfile />} />
+              <Route path="profile/create" element={<ProfileForm mode="create" />} />
+              <Route path="profile/edit" element={<ProfileForm mode="edit" />} />
+              <Route path="profile/posts/new" element={<PostForm mode="new" />} />
+              <Route path="profile/posts/:id/edit" element={<PostForm mode="edit" />} />
               <Route path="nearby" element={<NearbyRequests />} />
               <Route path="nearby/:id" element={<WorkerRequestDetail />} />
               <Route path="applications" element={<MyApplications />} />

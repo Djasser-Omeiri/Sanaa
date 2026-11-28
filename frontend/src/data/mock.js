@@ -13,6 +13,25 @@ export const portfolio = [
   { id: 3, title: 'Socket Installation', description: 'New sockets across a family home.', status: 'rejected', reason: 'Photos are too dark. Please add clearer photos.' },
 ]
 
+// The logged-in worker's own data, shaped after GET workers/me/profile and GET workers/me/posts (D2.1).
+// Exact coordinates are shown only to the worker; clients never see them.
+export const myWorkerProfile = {
+  bio: 'Plumber with 8 years of experience in homes and small businesses. Leaks, installations and bathroom renovations.',
+  trades: ['Plumber'],
+  latitude: 36.7213,
+  longitude: 3.1876,
+  radiusKm: 15,
+  score: 4.7,
+  reviewCount: 18,
+}
+
+export const myPosts = [
+  { id: 1, title: 'Bathroom pipe installation', description: 'New supply and drain pipes for a full bathroom renovation.', status: 'approved', photoCount: 4, rejectionReason: '' },
+  { id: 2, title: 'Kitchen sink replacement', description: 'Removed an old sink and fitted a new one with a mixer tap.', status: 'pending', photoCount: 3, rejectionReason: '' },
+  { id: 3, title: 'Water heater repair', description: 'Replaced the valve and fixed a leak on a wall-mounted heater.', status: 'rejected', photoCount: 3, rejectionReason: 'Photos are too dark. Please add clearer photos of the finished work.' },
+  { id: 4, title: 'Shower mixer installation', description: 'Fitted a thermostatic shower mixer and sealed the wall.', status: 'approved', photoCount: 5, rejectionReason: '' },
+]
+
 export const reviews = [
   { id: 1, name: 'Yasmine B.', initials: 'YB', rating: 5, comment: 'Great work ! Very professional and on time.' },
   { id: 2, name: 'Karim M.', initials: 'KM', rating: 5, comment: 'Highly recommended. Quality service .' },

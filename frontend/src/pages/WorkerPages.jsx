@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { CheckCircle2, ClipboardList, Info, MapPin, Pencil, Plus, Send, Star } from 'lucide-react'
+import { CheckCircle2, ClipboardList, Info, MapPin, Send, Star } from 'lucide-react'
 import { Page } from '../components/AppLayout.jsx'
-import { Avatar, Badge, Button, Field, MapPreview, PhotoSlot, StatusBadge, Tabs } from '../components/ui.jsx'
-import { applications, nearbyRequests, portfolio, trades } from '../data/mock.js'
+import { Badge, Button, MapPreview, PhotoSlot, StatusBadge, Tabs } from '../components/ui.jsx'
+import { applications, nearbyRequests } from '../data/mock.js'
 
 export function WorkerDashboard() {
   const stats = [[ClipboardList, nearbyRequests.length, 'Nearby requests'], [Send, applications.length, 'Applications'], [Star, '4.7', 'Your score']]
@@ -13,44 +13,6 @@ export function WorkerDashboard() {
       <div className="grid-3">{stats.map(([Icon, value, label]) => <article className="card stat" key={label}><Icon size={28} /><strong>{value}</strong><span>{label}</span></article>)}</div>
       <div className="section-heading"><h2>Latest nearby requests</h2><Button variant="soft" to="/worker/nearby">View all</Button></div>
       <div className="stack">{nearbyRequests.slice(0, 2).map((request) => <NearbyCard request={request} key={request.id} />)}</div>
-    </Page>
-  )
-}
-
-export function WorkerProfile() {
-  return (
-    <Page title="My profile & portfolio" subtitle="Manage your public profile and your work.">
-      <section className="card list-card">
-        <div className="person"><Avatar initials="AB" size="lg" /><div><strong>Ahmed Belkacem</strong> <Badge>Plumber</Badge><p>Plumber with 8 years of experience in homes and small businesses.</p><small><MapPin size={14} />Bab Ezzouar, Algiers · 15 km radius</small></div></div>
-        <Button variant="outline"><Pencil size={16} />Edit profile</Button>
-      </section>
-      <div className="section-heading"><h2>My portfolio posts</h2><Button to="/worker/profile/posts/new"><Plus size={18} />Add post</Button></div>
-      <div className="grid-3">
-        {portfolio.map((post) => (
-          <article className="card post-card" key={post.id}>
-            <PhotoSlot /><StatusBadge status={post.status} /><h3>{post.title}</h3><p>{post.description}</p>
-            {post.reason && <><p className="alert">{post.reason}</p><Button variant="outline" to="/worker/profile/posts/new">Edit & resubmit</Button></>}
-          </article>
-        ))}
-      </div>
-    </Page>
-  )
-}
-
-export function AddPost() {
-  return (
-    <Page title="Add portfolio post" subtitle="Show your work to clients." back={{ to: '/worker/profile', label: 'Back to my profile' }}>
-      <form className="card stack" onSubmit={(event) => event.preventDefault()}>
-        <div className="grid-2">
-          <Field label="Title"><input defaultValue="Bathroom pipe installation" /></Field>
-          <Field label="Trade"><select defaultValue="Plumber">{trades.map((trade) => <option key={trade}>{trade}</option>)}</select></Field>
-        </div>
-        <Field label="Description"><textarea rows="4" placeholder="Describe the work you did..." /></Field>
-        <div className="field"><span>Photos (minimum 3 required)</span><div className="photo-row four"><PhotoSlot /><PhotoSlot /><PhotoSlot /><PhotoSlot label="Add photo" add /></div></div>
-        <small className="success-text"><CheckCircle2 size={15} />3 of 3 required photos added</small>
-        <p className="note"><Info size={18} />Your post will be reviewed by staff and appears to clients once approved.</p>
-        <div className="form-actions"><Button variant="outline" to="/worker/profile">Cancel</Button><Button type="submit">Submit for review</Button></div>
-      </form>
     </Page>
   )
 }
